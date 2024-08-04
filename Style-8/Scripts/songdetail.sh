@@ -1,5 +1,11 @@
 #!/bin/bash
 
-song_info=$(playerctl metadata --format '{{title}}  {{artist}}')
+if [[ $(playerctl -p spotify status 2>/dev/null) == "Playing" ]]; then
+    status='▷  '
+else
+    status='  '
+fi
 
-echo "$song_info" 
+song_info=$(playerctl -p spotify metadata --format "$status {{title}}      {{artist}}")
+
+echo "$song_info"
